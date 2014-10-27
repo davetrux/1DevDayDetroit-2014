@@ -24,8 +24,8 @@ class ViewController: UIViewController {
 
 
     @IBAction func didTouchButton(sender: UIButton) {
-        var speakerText = "Yo speaker"
-        var audienceText = "Yo audience"
+        var speakerText = "Hello speaker"
+        var audienceText = "Hello audience"
         
         if(yoLabel.text != speakerText){
             yoLabel.text = speakerText
