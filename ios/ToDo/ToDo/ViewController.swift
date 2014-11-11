@@ -34,9 +34,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Register the UITableViewCell class with the tableView
         self.toDoList?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
         
-        let newItem = NSEntityDescription.insertNewObjectForEntityForName("ToDoItem", inManagedObjectContext: self.managedObjectContext!) as ToDoItem
-        
-        newItem.itemName = "First thing"
         //tableData.append(newItem)
     }
 
@@ -45,7 +42,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Dispose of any resources that can be recreated.
     }
 
-
+    func save() {
+        var error : NSError?
+        if(managedObjectContext!.save(&error) ) {
+            println(error?.localizedDescription)
+        }
+    }
+    
+    func fetch() -> [ToDoItem] {
+        let fetchRequest = NSFetchRequest(entityName: "ToDoItem")
+        
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ToDoItem] {
+            
+            return fetchResults
+        } else {
+            return [ToDoItem]()
+        }
+    }
+    
     @IBAction func handleAdd(sender: UIButton) {
         self.toDoText.endEditing(true)
         
@@ -57,6 +71,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.toDoText.endEditing(true)
         
         //tableData.append(newItem)
+        self.save()
         
         self.toDoList?.reloadData()
     }
@@ -68,22 +83,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let fetchRequest = NSFetchRequest(entityName: "ToDoItem")
-        
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ToDoItem] {
-            
-            return fetchResults.count
-
-        } else {
-            return 0;
-        }
+        let fetchResults = self.fetch()
+        return fetchResults.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as UITableViewCell
 
-        let fetchRequest = NSFetchRequest(entityName: "ToDoItem")
-        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ToDoItem] {
+        let fetchResults = self.fetch()
+        
+        if fetchResults.count > 0 {
             
             cell.textLabel.text = fetchResults[indexPath.row].itemName
             
@@ -108,7 +117,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.presentViewController(alert, animated: true, completion: nil)
 
-        tableData.removeAtIndex(indexPath.row)
+        let fetchResults = self.fetch()
+        
+        if fetchResults.count > 0 {
+            let itemToDelete = fetchResults[indexPath.row]
+            
+            // Delete it from the managedObjectContext
+            managedObjectContext?.deleteObject(itemToDelete)
+            self.save()
+        }
+        
+        //tableData.removeAtIndex(indexPath.row)
         self.toDoList?.reloadData()
     }
 }
