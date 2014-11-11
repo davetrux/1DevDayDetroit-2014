@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		632A3EAF1A11ACC90026ED7D /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A3EAE1A11ACC90026ED7D /* ToDoItem.swift */; };
 		EA7A35A71A07D91700D997EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7A35A61A07D91700D997EC /* AppDelegate.swift */; };
 		EA7A35AA1A07D91700D997EC /* ToDo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EA7A35A81A07D91700D997EC /* ToDo.xcdatamodeld */; };
 		EA7A35AC1A07D91700D997EC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7A35AB1A07D91700D997EC /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		632A3EAE1A11ACC90026ED7D /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		EA7A35A11A07D91700D997EC /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA7A35A51A07D91700D997EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA7A35A61A07D91700D997EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				EA7A35B01A07D91700D997EC /* Images.xcassets */,
 				EA7A35B21A07D91700D997EC /* LaunchScreen.xib */,
 				EA7A35A81A07D91700D997EC /* ToDo.xcdatamodeld */,
+				632A3EAE1A11ACC90026ED7D /* ToDoItem.swift */,
 				EA7A35A41A07D91700D997EC /* Supporting Files */,
 			);
 			path = ToDo;
@@ -217,6 +220,7 @@
 			files = (
 				EA7A35AC1A07D91700D997EC /* ViewController.swift in Sources */,
 				EA7A35A71A07D91700D997EC /* AppDelegate.swift in Sources */,
+				632A3EAF1A11ACC90026ED7D /* ToDoItem.swift in Sources */,
 				EA7A35AA1A07D91700D997EC /* ToDo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,6 +413,7 @@
 				EA7A35C51A07D91700D997EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA7A35C61A07D91700D997EC /* Build configuration list for PBXNativeTarget "ToDoTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +422,7 @@
 				EA7A35C81A07D91700D997EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -16,6 +17,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let cellIdentifier = "cellIdentifier"
     var tableData = [String]()
+ 
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+        }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,10 +34,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Register the UITableViewCell class with the tableView
         self.toDoList?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
         
-        // Setup temporary table data
-//        for index in 0...100 {
-//            self.tableData.append("Item \(index)")
-//        }
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("ToDoItem", inManagedObjectContext: self.managedObjectContext!) as ToDoItem
+        
+        newItem.itemName = "First thing"
+        //tableData.append(newItem)
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,12 +48,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBAction func handleAdd(sender: UIButton) {
         self.toDoText.endEditing(true)
-        var newItem = self.toDoText.text
         
+        let newItem = NSEntityDescription.insertNewObjectForEntityForName("ToDoItem", inManagedObjectContext: self.managedObjectContext!) as ToDoItem
+
+        newItem.itemName = self.toDoText.text
+
         self.toDoText.text = ""
         self.toDoText.endEditing(true)
         
-        tableData.append(newItem)
+        //tableData.append(newItem)
         
         self.toDoList?.reloadData()
     }
@@ -54,13 +68,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableData.count
+        let fetchRequest = NSFetchRequest(entityName: "ToDoItem")
+        
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ToDoItem] {
+            
+            return fetchResults.count
+
+        } else {
+            return 0;
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(self.cellIdentifier) as UITableViewCell
-        
-        cell.textLabel.text = self.tableData[indexPath.row]
+
+        let fetchRequest = NSFetchRequest(entityName: "ToDoItem")
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [ToDoItem] {
+            
+            cell.textLabel.text = fetchResults[indexPath.row].itemName
+            
+            //cell.textLabel.text = self.tableData[indexPath.row].itemName
+        }
         
         return cell
     }
