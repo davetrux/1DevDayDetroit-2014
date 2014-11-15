@@ -14,9 +14,9 @@
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTa-o0-8yR">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTa-o0-8yR">
                                 <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -24,24 +24,6 @@
                                     <rect key="frame" x="24" y="54" width="250" height="30"/>
                                 </variation>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="PI2-uI-dhy">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                </variation>
-                            </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AOr-gj-NYx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="24" y="121" width="340" height="452"/>
-                                </variation>
-                                <connections>
-                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="hLA-BU-IBl"/>
-                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="akQ-Mo-Fdl"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOV-CC-MFw">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <accessibility key="accessibilityConfiguration" label=""/>
@@ -55,34 +37,40 @@
                                     <action selector="handleAdd:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="t5i-kj-ZLf"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="iFY-dM-ShM">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="24" y="139" width="326" height="441"/>
+                                </variation>
+                                <connections>
+                                    <outlet property="dataSource" destination="vXZ-lx-hvc" id="RUG-73-wiU"/>
+                                    <outlet property="delegate" destination="vXZ-lx-hvc" id="vpd-6g-ykc"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="TTa-o0-8yR"/>
-                                <exclude reference="PI2-uI-dhy"/>
-                                <exclude reference="AOr-gj-NYx"/>
                                 <exclude reference="OOV-CC-MFw"/>
+                                <exclude reference="iFY-dM-ShM"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
-                                <include reference="TTa-o0-8yR"/>
-                                <include reference="PI2-uI-dhy"/>
-                                <include reference="AOr-gj-NYx"/>
                                 <include reference="OOV-CC-MFw"/>
+                                <include reference="iFY-dM-ShM"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="addToDo" destination="OOV-CC-MFw" id="JXk-1E-aS2"/>
-                        <outlet property="toDoList" destination="AOr-gj-NYx" id="2Ba-VH-QER"/>
+                        <outlet property="toDoList" destination="iFY-dM-ShM" id="Dp4-M3-4UO"/>
                         <outlet property="toDoText" destination="TTa-o0-8yR" id="On6-M6-FPW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="439.5" y="407"/>
         </scene>
     </scenes>
 </document>

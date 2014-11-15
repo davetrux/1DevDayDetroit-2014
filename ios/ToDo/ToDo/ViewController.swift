@@ -13,10 +13,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     @IBOutlet weak var toDoText: UITextField!
     @IBOutlet weak var addToDo: UIButton!
-    @IBOutlet weak var toDoList: UITableView?
+    
+    @IBOutlet weak var toDoList: UITableView!
     
     let cellIdentifier = "cellIdentifier"
-    var tableData = [String]()
+    
  
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -33,8 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         // Register the UITableViewCell class with the tableView
         self.toDoList?.registerClass(UITableViewCell.self, forCellReuseIdentifier: self.cellIdentifier)
-        
-        //tableData.append(newItem)
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,7 +70,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.toDoText.text = ""
         self.toDoText.endEditing(true)
         
-        //tableData.append(newItem)
         self.save()
         
         self.toDoList?.reloadData()
@@ -96,7 +95,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             cell.textLabel.text = fetchResults[indexPath.row].itemName
             
-            //cell.textLabel.text = self.tableData[indexPath.row].itemName
         }
         
         return cell
@@ -105,17 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     // UITableViewDelegate methods
     
     func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!) {
-        
-      
-        let alert = UIAlertController(title: "Item selected", message: "You selected item \(indexPath.row)", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alert.addAction(UIAlertAction(title: "OK",
-            style: UIAlertActionStyle.Default,
-            handler: {
-                (alert: UIAlertAction!) in println("An alert of type \(alert.style.hashValue) was tapped!")
-        }))
-        
-        self.presentViewController(alert, animated: true, completion: nil)
+
 
         let fetchResults = self.fetch()
         
@@ -126,8 +114,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             managedObjectContext?.deleteObject(itemToDelete)
             self.save()
         }
-        
-        //tableData.removeAtIndex(indexPath.row)
+
         self.toDoList?.reloadData()
     }
 }
